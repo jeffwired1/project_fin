@@ -7,8 +7,9 @@ from dateutil.relativedelta import relativedelta
 # This program takes a download from a banking account and analyses the contents for monthly expenses
 
 # Suppress tkinter root window
-root = tk.Tk()
-root.withdraw()
+#root = tk.Tk()
+#root.withdraw()
+
 
 
 # This function searches the downloaded banking file for data
@@ -30,6 +31,9 @@ def find_data(search, start_date, end_date):
 
 
 # 📍 Main code starts here
+# Suppress tkinter root window
+root = tk.Tk()
+root.withdraw()
 # Open tkinter file dialog
 filepath = filedialog.askopenfilename(
     title="Select a CSV File",
