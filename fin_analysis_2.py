@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, Toplevel
 import csv
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -10,10 +10,11 @@ from dateutil.relativedelta import relativedelta
 root = tk.Tk()
 root.withdraw()
 
+
 # This function searches the downloaded banking file for data
 def find_data(search, start_date, end_date):
     number_withdrawals = 0  # Number of instances found
-    total_amount = 0  # Total abount
+    total_amount = 0  # Total amount
     lines = []  # Clear array
     for i in range(num_rows):  # Search each row of banking file for desired data
         if search in (data_list[i]['Description']):  # Continue if line of data matches selection
@@ -26,6 +27,7 @@ def find_data(search, start_date, end_date):
                 t = target_date.strftime("%m/%d/%Y")
                 lines.append("    " + str(t) + "   " + str(format(cleaned, ".2f")))
     return number_withdrawals, total_amount, lines
+
 
 # 📍 Main code starts here
 # Open tkinter file dialog
@@ -94,4 +96,8 @@ cc_total_formatted = format(cc_total, ".2f")
 cc_average_formatted = format(cc_average, ".2f")
 file.write(f"Total Credit Cards = {cc_total_formatted}" + "\n")
 file.write(f"Total Credit Cards Monthly = {cc_average_formatted}" + "\n")
+
+
+
+
 
