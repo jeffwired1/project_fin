@@ -31,8 +31,11 @@ def find_data(search, start_date, end_date):
 
 
 def add_text(lbl1):
-    new_label = tk.Label(root, text=lbl1)
-    new_label.pack()
+    #new_label = tk.Label(root, text=lbl1)
+    #new_label.pack()
+    #label = tk.Label(root, text=lbl1, anchor='w', width=30)
+    label = tk.Label(root, text=lbl1, anchor='w')
+    label.pack(fill='x', padx=10, pady=0)
 
 
 # 📍 Main code starts here
@@ -87,13 +90,14 @@ for row in reader:
     name = row['Name']
     file.write("\n")
     file.write(name + "\n")
-    add_text(f"Processing: {name}")
+    #add_text(f"Processing: {name}")
     withdrawals, total, lines = find_data(search, start_date, end_date)
     for line in lines:
         file.write(line + "\n")
     total_formatted = format(float(total), ".2f")
     average_formatted = format(float(total/months), ".2f")
     file.write(f"{name}, #:{withdrawals}, Total:{total_formatted},  Average:{average_formatted}" + "\n")
+    add_text(f"{name}, #: {withdrawals}, Total: ${total_formatted},  Average: ${average_formatted}")
     if row['TYPE'] == "CC":
         cc_total += total
         cc_average += total/months
@@ -107,7 +111,7 @@ cc_average_formatted = format(cc_average, ".2f")
 file.write(f"Total Credit Cards = {cc_total_formatted}" + "\n")
 file.write(f"Total Credit Cards Monthly = {cc_average_formatted}" + "\n")
 
-add_text("hhh")
+add_text("Done")
 
 root.mainloop()
 
