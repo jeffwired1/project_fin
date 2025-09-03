@@ -26,7 +26,7 @@ def find_data(search, start_date, end_date):
                 cleaned = float(cleaned.replace("$", "").replace(",", ""))
                 total_amount += cleaned
                 t = target_date.strftime("%m/%d/%Y")
-                lines.append("    " + str(t) + "   " + str(format(cleaned, ".2f")))
+                lines.append("    " + str(t) + "    $" + str(format(cleaned, ",.2f")))
     return number_withdrawals, total_amount, lines
 
 
@@ -94,9 +94,9 @@ for row in reader:
     withdrawals, total, lines = find_data(search, start_date, end_date)
     for line in lines:
         file.write(line + "\n")
-    total_formatted = format(float(total), ".2f")
-    average_formatted = format(float(total/months), ".2f")
-    file.write(f"{name}, #:{withdrawals}, Total:{total_formatted},  Average:{average_formatted}" + "\n")
+    total_formatted = format(float(total), ",.2f")
+    average_formatted = format(float(total/months), ",.2f")
+    file.write(f"{name}, #:{withdrawals}, Total: ${total_formatted},  Average: ${average_formatted}" + "\n")
     add_text(f"{name}, #: {withdrawals}, Total: ${total_formatted},  Average: ${average_formatted}")
     if row['TYPE'] == "CC":
         cc_total += total
@@ -106,10 +106,12 @@ file.write("\n")
 s = start_date.strftime("%m/%d/%Y")
 e = end_date.strftime("%m/%d/%Y")
 file.write(f"Start Date:{s}, End Date:{e}" + "\n\n")
-cc_total_formatted = format(cc_total, ".2f")
-cc_average_formatted = format(cc_average, ".2f")
-file.write(f"Total Credit Cards = {cc_total_formatted}" + "\n")
-file.write(f"Total Credit Cards Monthly = {cc_average_formatted}" + "\n")
+cc_total_formatted = format(cc_total, ",.2f")
+cc_average_formatted = format(cc_average, ",.2f")
+file.write(f"Total Credit Cards = ${cc_total_formatted}" + "\n")
+add_text(f"Total Credit Cards = ${cc_total_formatted}")
+file.write(f"Total Credit Cards Monthly = ${cc_average_formatted}" + "\n")
+add_text(f"Total Credit Cards Monthly = ${cc_average_formatted}")
 
 add_text("Done")
 
