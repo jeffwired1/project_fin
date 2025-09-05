@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog, Toplevel
+from tkinter import filedialog
 import csv
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -31,9 +31,6 @@ def find_data(search, start_date, end_date):
 
 
 def add_text(lbl1):
-    #new_label = tk.Label(root, text=lbl1)
-    #new_label.pack()
-    #label = tk.Label(root, text=lbl1, anchor='w', width=30)
     label = tk.Label(root, text=lbl1, anchor='w')
     label.pack(fill='x', padx=10, pady=0)
 
@@ -41,6 +38,7 @@ def add_text(lbl1):
 # 📍 Main code starts here
 # Suppress tkinter root window
 root = tk.Tk()
+root.title("Summary")
 #root.withdraw()
 # Open tkinter file dialog
 filepath = filedialog.askopenfilename(
