@@ -78,9 +78,13 @@ section2 = lines[split_index + 1:]  # skip the blank line and get search definit
 options = csv.DictReader(section1)
 rows = list(options)
 months = float(rows[0]['Months'])  # Get # months for analysis
+title = rows[0]['Title']  # Get Title
 today = datetime.now()
 start_date = today - relativedelta(months=months)  # Start date = today - # months
 end_date = today
+
+file.write(title + "\n")
+add_text(title)
 
 reader = csv.DictReader(section2)
 for row in reader:
@@ -88,7 +92,6 @@ for row in reader:
     name = row['Name']
     file.write("\n")
     file.write(name + "\n")
-    #add_text(f"Processing: {name}")
     withdrawals, total, lines = find_data(search, start_date, end_date)
     for line in lines:
         file.write(line + "\n")
