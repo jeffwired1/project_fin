@@ -83,8 +83,13 @@ today = datetime.now()
 start_date = today - relativedelta(months=months)  # Start date = today - # months
 end_date = today
 
-file.write(title + "\n")
+file.write(title + "\n") # Add title to window and file
 add_text(title)
+
+s = start_date.strftime("%m/%d/%Y")
+e = end_date.strftime("%m/%d/%Y")
+file.write(f"Start Date: {s}, End Date: {e}" + "\n")
+add_text(f"Start Date: {s}, End Date: {e}" + "\n")
 
 reader = csv.DictReader(section2)
 for row in reader:
@@ -97,24 +102,31 @@ for row in reader:
         file.write(line + "\n")
     total_formatted = format(float(total), ",.2f")
     average_formatted = format(float(total/months), ",.2f")
-    file.write(f"{name}, #:{withdrawals}, Total: ${total_formatted},  Average: ${average_formatted}" + "\n")
-    add_text(f"{name}, #: {withdrawals}, Total: ${total_formatted},  Average: ${average_formatted}")
+    file.write(f"{name} Summary:\n"
+               f"    Number of Transactions: {withdrawals}\n"
+               f"    {int(months)}-Month Total: ${total_formatted}\n"
+               f"    {int(months)}-Month Average: ${average_formatted}" + "\n")
+    add_text(f"{name} Summary: "
+               f"    Number of Transactions: {withdrawals}, "
+               f"    {int(months)}-Month Total: ${total_formatted}, "
+               f"    {int(months)}-Month Average: ${average_formatted}")
     if row['TYPE'] == "CC":
         cc_total += total
         cc_average += total/months
 
 file.write("\n")
-s = start_date.strftime("%m/%d/%Y")
-e = end_date.strftime("%m/%d/%Y")
-file.write(f"Start Date:{s}, End Date:{e}" + "\n\n")
 cc_total_formatted = format(cc_total, ",.2f")
 cc_average_formatted = format(cc_average, ",.2f")
-file.write(f"Total Credit Cards = ${cc_total_formatted}" + "\n")
-add_text(f"Total Credit Cards = ${cc_total_formatted}")
-file.write(f"Total Credit Cards Monthly = ${cc_average_formatted}" + "\n")
-add_text(f"Total Credit Cards Monthly = ${cc_average_formatted}")
+file.write(f"Credit Cards Total: ${cc_total_formatted}" + "\n")
+add_text(f"Credit Cards Total: ${cc_total_formatted}")
+file.write(f"Credit Cards {int(months)}-Month Average: ${cc_average_formatted}" + "\n")
+add_text(f"Credit Cards {int(months)}-Month Average: ${cc_average_formatted}")
 
 add_text("Done")
+
+# add close button to end program
+close_button = tk.Button(root, text="Close", command=root.destroy)
+close_button.pack(pady=20)
 
 root.mainloop()
 
