@@ -96,7 +96,7 @@ for row in reader:
     search = row['Search']
     name = row['Name']
     file.write("\n")
-    file.write(name + "\n")
+    file.write(name + " Transactions:\n")
     withdrawals, total, lines = find_data(search, start_date, end_date)
     for line in lines:
         file.write(line + "\n")
